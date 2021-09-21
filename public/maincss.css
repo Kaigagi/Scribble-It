@@ -1,0 +1,107 @@
+body{
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    margin-top: 40px;
+}
+.drawBoard{
+    margin: 0px;
+    width: 825px;
+    height: 600px;
+    border: 1px solid black;
+}
+.wrapper{
+    display: flex;
+    text-align: center;
+    background-color: rgb(202, 199, 199);
+    position: relative;
+}
+.color-picker{
+    display: flex;
+    margin: 10px;
+}
+.colors{
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+#clear{
+    margin: 10px;
+    height: 50px;
+    width: 70px;
+    background-color: greenyellow;
+}
+
+.player{
+    width: 150px;
+    height: 50px;
+    position: absolute;
+    right: 50px;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.player img{
+    border: 1px groove gray;
+    border-radius: 50%;
+    width: 30%;
+    margin: 10px;
+}
+
+#paint{
+    /*cursor: pointer;*/
+    border: 1px dashed gray;
+    margin: 10px 10px 10px 10px;
+}
+
+#playerBoard{
+    width: 200px;
+    height: 600px;
+    border: 1px solid black;
+    margin-left: 50px;
+}
+.playerTag{
+    width: 200px;
+    height: 2.5em;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    padding: 0.5em;
+    border: black solid 1px;
+    box-sizing: border-box;
+}
+
+#chatArea{
+    width: 200px;
+    height: 600px;
+    border: 1px solid black;
+}
+#chatBox{
+    width: 190px;
+    height: 540px;
+    margin-left: 5px;
+    border: 1px dashed gray;
+    box-sizing: border-box;
+    padding: 10px;
+}
+#inputArea{
+    width: 200px;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#chat{
+    width: 140px;
+    height: 50px;
+    box-sizing: border-box;
+}
+button#sendMessage{
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+}

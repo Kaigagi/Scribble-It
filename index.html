@@ -4,30 +4,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./maincss.css">
+    <link rel="stylesheet" href="maincss.css">
     <title>Scribble It</title>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="color-picker">
-            <div class="colors" style="background:red"></div>
-            <div class="colors" style="background:orange"></div>
-            <div class="colors" style="background:yellow"></div>
-            <div class="colors" style="background:green"></div>
-            <div class="colors" style="background:rgb(26, 149, 250)"></div>
-            <div class="colors" style="background:rgb(86, 14, 255)"></div>
-            <div class="colors" style="background:purple"></div>
-            <div class="colors" style="background:black"></div>
+    <div id="playerBoard">
+        
+    </div>
+    <div class="drawBoard">
+        <div class="wrapper">
+            <div class="color-picker">
+                <div class="colors" style="background:red"></div>
+                <div class="colors" style="background:orange"></div>
+                <div class="colors" style="background:yellow"></div>
+                <div class="colors" style="background:green"></div>
+                <div class="colors" style="background:rgb(26, 149, 250)"></div>
+                <div class="colors" style="background:rgb(86, 14, 255)"></div>
+                <div class="colors" style="background:purple"></div>
+                <div class="colors" style="background:black"></div>
+            </div>
+            <div id="btn-clear">
+                <button id="clear">Clear</button>
+            </div>
+            <div class="player">
+                <span id="name">Player 1</span>
+                <img id="avatar" src="./demo-avt.png">
+            </div>
         </div>
-        <div id="btn-clear">
-            <button id="clear">Clear</button>
-        </div>
-        <div class="player">
-            <span id="name">Player 1</span>
-            <img id="avatar" src="./demo-avt.png">
+        <canvas id="paint" width="800px" height="500px"></canvas>
+    </div>
+    <div id="chatArea">
+        <div id="chatBox"></div>
+        <div id="inputArea">
+            <input type="text" id="chat" onkeypress="Enter(event)">
+            <button id="sendMessage" onclick="sendMessage()">Send</button>
         </div>
     </div>
-    <canvas id="paint" width="800px" height="500px"></canvas>
 </body>
-<script src="./draw.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="game.js"></script>
+<script src="draw.js"></script>
 </html>

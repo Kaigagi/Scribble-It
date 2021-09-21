@@ -35,12 +35,14 @@ window.addEventListener('mouseup', e => {
 
 function drawLine(context, x1, y1, x2, y2) {
   context.beginPath();
-  context.lineWidth = 1;
+  context.lineWidth = 2;
   context.moveTo(x1, y1);
   context.lineTo(x2, y2);
   context.stroke();
   context.closePath();
 }
+
+//change color of stroke when choose other color
 
 context.strokeStyle = 'black';
 
@@ -49,4 +51,10 @@ colorPicker.forEach(colorPicker => {
     colorPicker.addEventListener('click',(e) =>{
         context.strokeStyle = e.target.style.backgroundColor
     })
+})
+
+//clear all stroke in canvas area
+
+document.querySelector('#btn-clear').addEventListener('click',(e) =>{
+    context.clearRect(0,0,800,500)
 })

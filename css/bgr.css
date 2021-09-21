@@ -1,0 +1,89 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#canvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    z-index: -1;
+}
+
+.main-screen{
+    width: 400px;
+    height: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(87, 87, 87);
+    margin: 0 auto;
+    margin-top: 10%;
+}
+
+#set-name{
+    position: relative;
+    color: rgb(219, 219, 219);
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-top: 10%;
+    margin-left: 25%;
+}
+
+#type-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 20%;
+    margin: 0 auto;
+}
+
+#name{
+    flex: 1 1 auto;
+    padding: 5px;
+    height: 25px;
+    outline: none;
+    border: none;
+    border-radius: 10px 0 0 10px;
+}
+
+#join{
+    cursor: pointer;
+    margin: 0;
+    height: 35px;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    width: 30%;
+}
+
+#join:hover{
+    background-color: rgb(197, 197, 197);
+}
+
+#choose-gender{
+    position: relative;
+    color: rgb(219, 219, 219);
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin: 0;
+    margin-left: 30%;
+}
+
+#gender{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 30%;
+}
+
+#gender img{
+    margin: 10px;
+    border: none;
+    border-radius: 50%;
+}

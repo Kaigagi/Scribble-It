@@ -4,6 +4,7 @@ const http = require("http");
 const path = require("path");
 const express = require("express");
 const socketIO = require("socket.io");
+const {Players} = require("./modules/players");
 //-----------------------------------------------------------------------------------
 const port = process.env.port || 3000;
 //-----------------------------------------------------------------------------------
@@ -14,11 +15,9 @@ const io = socketIO(server);
 server.listen(port);
 //handle các request để lấy file css và scipts
 app.use(express.static('public'));
-app.use(express.urlencoded({extend: true}));
 //-----------------------------------------------------------------------------------
 // handle socket.io connection
-let players = [];
-let host ;
+let players = new Players();
 function checkValidName(nickname) {
     for (let index = 0; index < players.length; index++) {
         if (nickname == players[index]) {
@@ -30,18 +29,27 @@ function checkValidName(nickname) {
         }
     }
 }
+function generateMessage(message,from) {
+    let now = Date.now();
+    let messageData = {message,from,time: now}
+    return messageData;
+}
 
 io.on("connection",(socket)=>{
-    console.log("a player joined")
-    io.on("joinRoom",(nickname)=>{
-        let nickname = req.body.nickname;
-        if (checkValidName(nickname)) {
-            players.push(nickname);
-        }
-        host = players[0];
-        socket.broadcast.emit("newPlayer",nickname)
+    socket.on('join',(params,callback)=>{
+        players.addPlayer(socket.id,params.name,params.room)
+        socket.join(params.room)
+        io.to(params.room).emit("join",players.getPlayersList(params.room));
     })
-    io.on("startGame",(from)=>{
+    socket.on("drawSendToServer",(data)=>{
+        socket.broadcast.emit("draw",data)
+    })
+    socket.on("sendMessage",(message)=>{
+        let fromPlayer = players.getPlayerById(socket.id)
+        let messageData = generateMessage(message,fromPlayer.name)
+        socket.to(fromPlayer.room).emit("receiveMessage",messageData);
+    })
+    socket.on("startGame",(from)=>{
         if (from != players[0]) {
             return;
         }
@@ -53,14 +61,17 @@ io.on("connection",(socket)=>{
             }
         }
     })
+    socket.on("disconnect",()=>{
+        let player = players.removePlayer(socket.id);
+        io.to(player.room).emit("left",players.getPlayersList(player.room));
+    })
 })
 
 //handle some routes
 app.get("/",(req,res)=>{
-    res.sendFile("index.html",{root: __dirname})
+    res.sendFile("login.html",{root: __dirname})
 })
 
-// app.get("/join-game",(req,res)=>{
-
-//     res.sendFile("gameRoom.html",{root: __dirname})
-// })
+app.get("/play",(req,res)=>{
+    res.sendFile("index.html",{root: __dirname})
+})

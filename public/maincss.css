@@ -4,11 +4,14 @@ body{
     flex-direction: row;
     margin-top: 40px;
 }
-.drawBoard{
-    margin: 0px;
+.container{
     width: 825px;
     height: 600px;
-    border: 1px solid black;
+    margin-left: 13%;
+    margin-top: 5%;
+    margin-bottom: 1%;
+    background-color: rgb(102, 102, 102);
+    border: 1px solid rgb(207, 207, 207);
 }
 .wrapper{
     display: flex;
@@ -31,6 +34,9 @@ body{
     height: 50px;
     width: 70px;
     background-color: greenyellow;
+}
+#clear:hover{
+    background-color: rgb(168, 166, 166);
 }
 
 .player{

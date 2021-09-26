@@ -18,7 +18,7 @@ myPics.addEventListener('mousedown', e => {
 
 myPics.addEventListener('mousemove', e => {
   if (isDrawing === true) {
-    drawLine(context, x, y, e.offsetX, e.offsetY,true);
+    drawLine(context, x, y, e.offsetX, e.offsetY);
     x = e.offsetX;
     y = e.offsetY;
   }
@@ -26,7 +26,7 @@ myPics.addEventListener('mousemove', e => {
 
 window.addEventListener('mouseup', e => {
   if (isDrawing === true) {
-    drawLine(context, x, y, e.offsetX, e.offsetY,true);
+    drawLine(context, x, y, e.offsetX, e.offsetY);
     x = 0;
     y = 0;
     isDrawing = false;
@@ -35,12 +35,11 @@ window.addEventListener('mouseup', e => {
 
 function drawLine(context, x1, y1, x2, y2,sendToServer) {
   context.beginPath();
-  context.lineWidth = 4;
+  context.lineWidth = 3;
   context.moveTo(x1, y1);
   context.lineTo(x2, y2);
   context.stroke();
   context.closePath();
-  console.log(2)
   if (sendToServer) {
     socket.emit("drawSendToServer",{
     x1: x1,

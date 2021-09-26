@@ -15,8 +15,10 @@ body{
 }
 
 .main-screen{
+    display: flex;
+    flex-direction: column;
     width: 400px;
-    height: 300px;
+    height: 350px;
     padding: 10px;
     border: none;
     border-radius: 10px;
@@ -29,15 +31,22 @@ body{
     position: relative;
     color: rgb(219, 219, 219);
     font-weight: 600;
-    font-size: 1.5rem;
-    margin-top: 10%;
-    margin-left: 25%;
+    font-size: 1rem;
+    margin-top: 5%;
+}
+
+#set-room{
+    position: relative;
+    color: rgb(219, 219, 219);
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 5%;
 }
 
 #type-name{
+    flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     width: 80%;
     height: 20%;
     margin: 0 auto;
@@ -49,15 +58,24 @@ body{
     height: 25px;
     outline: none;
     border: none;
-    border-radius: 10px 0 0 10px;
+    border-radius: 10px;
+}
+
+#room{
+    flex: 1 1 auto;
+    padding: 5px;
+    height: 25px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
 }
 
 #join{
     cursor: pointer;
-    margin: 0;
+    margin: 0 auto;
     height: 35px;
     border: none;
-    border-radius: 0 10px 10px 0;
+    border-radius: 10px;
     width: 30%;
 }
 
@@ -70,8 +88,8 @@ body{
     color: rgb(219, 219, 219);
     font-weight: 600;
     font-size: 1.2rem;
-    margin: 0;
-    margin-left: 30%;
+    margin-bottom: 0;
+    
 }
 
 #gender{
@@ -83,6 +101,7 @@ body{
 }
 
 #gender img{
+    cursor: pointer;
     margin: 10px;
     border: none;
     border-radius: 50%;

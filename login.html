@@ -4,23 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/bgr.css">
+    <link rel="stylesheet" type="text/css" href="./public/css/bgr.css">
     <title>Scribble It</title>
 </head>
 <body>
     <div class="main-screen">
-        <p id="set-name">Set your name</p>
-        <div id="type-name">
+        <form action="/play" method="get" id="type-name">
+            <p id="set-name">Enter your name</p>
             <input type="text" id="name" placeholder="Enter your name">
-            <button id="join">Join</button>
-        </div>
-        <p id="choose-gender">Choose gender</p>
-        <div id="gender">
-            <img src="image/demo-avt.png" id="male" >
-            <img src="image/woman.png" id="female">
-        </div>
+            <p id="set-room">Enter room number</p>
+            <input type="text" id="room" placeholder="Enter room number">
+            <p id="choose-gender">Choose gender</p>
+            <div id="gender">
+                <img src="./public/image/demo-avt.png" id="male" >
+                <img src="./public/image/woman.png" id="female">
+            </div>
+            <button type="submit" id="join">Join</button>
+        </form>
     </div>
     <canvas id="canvas"></canvas>
 </body>
-<script src="scripts/bgr.js"></script>
+<script src="./public/scripts/bgr.js"></script>
 </html>

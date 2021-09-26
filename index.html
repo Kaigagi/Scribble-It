@@ -8,6 +8,7 @@
     <title>Scribble It</title>
 </head>
 <body>
+    <div id="wordDisplay"></div>
     <div id="playerBoard">
         
     </div>
@@ -40,6 +41,15 @@
             <button id="sendMessage" onclick="sendMessage()">Send</button>
         </div>
     </div>
+    <button id="start" onclick="StartGame()" disabled>Start Game</button>
+    <div id="time"></div>
+    <div id="myModal" class="modal">
+        <div id="modal-content">
+          
+          
+        </div>
+      
+      </div>
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script src="scripts/game.js"></script>

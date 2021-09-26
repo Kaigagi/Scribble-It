@@ -1,6 +1,7 @@
 
 // When true, moving the mouse draws on the canvas
 let isDrawing = false;
+let turn = false;
 let x = 0;
 let y = 0;
 
@@ -17,7 +18,7 @@ myPics.addEventListener('mousedown', e => {
 });
 
 myPics.addEventListener('mousemove', e => {
-  if (isDrawing === true) {
+  if (isDrawing === true&& turn == true) {
     drawLine(context, x, y, e.offsetX, e.offsetY,true);
     x = e.offsetX;
     y = e.offsetY;
@@ -25,7 +26,7 @@ myPics.addEventListener('mousemove', e => {
 });
 
 window.addEventListener('mouseup', e => {
-  if (isDrawing === true) {
+  if (isDrawing === true&& turn == true) {
     drawLine(context, x, y, e.offsetX, e.offsetY,true);
     x = 0;
     y = 0;

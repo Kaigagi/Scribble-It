@@ -18,26 +18,16 @@ myPics.addEventListener('mousedown', e => {
 });
 
 myPics.addEventListener('mousemove', e => {
-<<<<<<< HEAD
   if (isDrawing === true&& turn == true) {
     drawLine(context, x, y, e.offsetX, e.offsetY,true);
-=======
-  if (isDrawing === true) {
-    drawLine(context, x, y, e.offsetX, e.offsetY);
->>>>>>> f3dc3692e745abc6ee710cfef97317036b6f2aaa
     x = e.offsetX;
     y = e.offsetY;
   }
 });
 
 window.addEventListener('mouseup', e => {
-<<<<<<< HEAD
   if (isDrawing === true&& turn == true) {
     drawLine(context, x, y, e.offsetX, e.offsetY,true);
-=======
-  if (isDrawing === true) {
-    drawLine(context, x, y, e.offsetX, e.offsetY);
->>>>>>> f3dc3692e745abc6ee710cfef97317036b6f2aaa
     x = 0;
     y = 0;
     isDrawing = false;

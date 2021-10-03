@@ -10,7 +10,7 @@ class Players {
             room: room,
             host: false,
             turn: false,
-            score: 0
+            score: 0,
         }
         this.players.push(player);
         return player;
@@ -36,6 +36,12 @@ class Players {
     getPlayerById(id){
         let player = this.players.filter((player)=> player.id === id)[0];
         return player
+    }
+
+    getHost(room){
+        let roomMembers = this.getPlayersListWithId(room)
+        let player = roomMembers.filter((player)=> player.host === true)[0];
+        return player;
     }
 
     removePlayer(id){

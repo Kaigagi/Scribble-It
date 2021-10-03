@@ -3,6 +3,11 @@ let host = false;
 let onGame = false;
 let startButton = document.getElementById("start");
 let modal = document.getElementById("myModal")
+let wordPoolHost;
+let roomMembersHost;
+let chosenWord;
+let startTime;
+let timeLimit;
 
 function renderPlayer(playersList){
     let playerBoard = document.getElementById("playerBoard");
@@ -40,11 +45,10 @@ function sendMessage() {
     let input = document.getElementById("chat");
     addMessage(generateMessage(input.value,"me"),true);
     socket.emit("sendMessage",input.value);
-    console.log(onGame,turn)
     if (onGame&&!turn) {
         socket.emit("answer",input.value)
     }
-    input.value = " ";
+    input.value = "";
 }
 
 function Enter(event) {
@@ -90,7 +94,6 @@ function closeModal(params) {
 
 function convertToAnonymous(word) {
     let afterConvert = word.replace(/\s/g,'  ')
-    console.log(afterConvert)
     afterConvert = afterConvert.replace(/[a-z]/g, "_ ");
     afterConvert = afterConvert.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "_ ");
     afterConvert = afterConvert.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "_ ");
@@ -128,6 +131,9 @@ socket.on("startTurn",(randomWords)=>{
 })
 
 socket.on("hasChoseAWord",(word)=>{
+    if (host) {
+        chosenWord = word;
+    }
     word = convertToAnonymous(word);
     let wordDisplay = document.getElementById("wordDisplay")
     let pre = document.createElement("pre")
@@ -138,16 +144,52 @@ socket.on("hasChoseAWord",(word)=>{
 
 socket.on("timerStart",(time)=>{
     onGame = true;
+    startTime = Date.now();
+    timeLimit = time;
     let timer = document.getElementById("time")
     timer.classList.add("startTimer");
 })
 
 socket.on("youWin",(playersScore)=>{
     let count = 0;
+    console.log(1)
     playersScore.forEach(playerScore => {
         let score = document.getElementById(count++);
         score.innerHTML = playerScore;
     });
+})
+
+function getRandomWords(wordPool) {
+    let random = Math.round(Math.random()*(wordPool.length-1))
+    return wordPool[random];
+}
+
+socket.on("startALoop",(wordPool,roomMembers)=>{
+    wordPoolHost = wordPool;
+    roomMembersHost = roomMembers;
+    let turn = Math.round(Math.random()*(roomMembers.length-1));
+    let drawer = roomMembersHost[turn];
+    roomMembersHost.filter((member)=> member===turn);
+    let randomWords = [];
+    while (randomWords.length<3) {
+        let randomWord = getRandomWords(wordPool);
+        randomWords.push(randomWord);
+        wordPool.filter((word)=> word!== randomWord);
+    }
+    socket.emit("startTurn",drawer,randomWords)
+})
+
+socket.on("verifyAnswer",(answer,player)=>{
+    console.log(chosenWord);
+    console.log(answer)
+    if (answer == chosenWord) {
+        console.log(player);
+        let now = Date.now();
+        let time = now - startTime;
+        let score = (timeLimit/time)*20;
+        player.score += score;
+        socket.emit("updateScore",player);
+    }
 })
 
 

@@ -71,22 +71,9 @@ io.on("connection",(socket)=>{
         socket.to(fromPlayer.room).emit("receiveMessage",messageData);
     })
 
-    function getRandomWords(wordPool) {
-        let random = Math.round(Math.random()*(wordPool.length-1))
-        return wordPool[random];
-    }
-
-    function startATurn(roomMenbers,wordPool) {
-        let turn = Math.round(Math.random()*(roomMenbers.length-1));
-        let drawer = roomMenbers[turn];
-        let randomWords = [];
-        while (randomWords.length<3) {
-            let randomWord = getRandomWords(wordPool);
-            randomWords.push(randomWord);
-            wordPool.filter((word)=> word!== randomWord);
-        }
-        io.to(drawer.id).emit("startTurn",randomWords)
-    }
+    socket.on("startTurn",(drawer,randomWords)=>{
+        io.to(drawer.id).emit("startTurn",randomWords);
+    })
 
     socket.on("hasChoseAWord",(word)=>{
         let room = players.getPlayerById(socket.id).room
@@ -94,21 +81,22 @@ io.on("connection",(socket)=>{
         let timeLimit = 180000
         let startTime = Date.now();
         io.to(room).emit("timerStart",timeLimit)
-        socket.on("answer",(answer)=>{
-            console.log(2)
-            if (answer == word) {
-                console.log(1);
-                let player = players.getPlayerById(socket.id)
-                let now = Date.now();
-                let time = now - startTime;
-                let score = (timeLimit/time)*20;
-                player.score += score;
-                socket.emit("youWin",players.getScore(player.room));
-            }
-        })
         setTimeout(()=>{
             io.to(room).emit("endTurn")
         },timeLimit)
+    })
+
+    socket.on("answer",(answer)=>{
+        let player = players.getPlayerById(socket.id)
+        let host = players.getHost(player.room)
+        io.to(host.id).emit("verifyAnswer",answer,player)
+    })
+
+    socket.on("updateScore",(player)=>{
+        let score = player.score;
+        player = players.getPlayerById(player.id)
+        player.score = score;
+        socket.emit("youWin",players.getScore(player.room));
     })
 
     socket.on("startGame",()=>{
@@ -120,7 +108,7 @@ io.on("connection",(socket)=>{
             const collection = client.db("WordPool").collection("wordlists");
             collection.findOne({_id:randomWordPool}).then((result)=>{
                 wordPool = result.wordList;
-                startATurn(roomMembers,wordPool);
+                io.to(host.id).emit("startALoop",wordPool,roomMembers);
             })
         });
     })

@@ -1,0 +1,77 @@
+body{
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: black;
+}
+
+.main{
+    width: 60%;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+    margin-top: 10%;
+    border: none;
+    /*background-color: rgb(255, 255, 255);*/
+}
+
+.tier{
+    max-height: 100%;
+    width: 30%;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+}
+
+.tier img{
+    width: 100px;
+    border-radius: 50%;
+    margin-top: 5%;
+}
+
+#silver{
+    margin-top: 10%;
+    background-color: silver;
+    border-radius: 10px 10px 0 0;
+}
+
+#gold{
+    margin-top: 0;
+    background-color: gold; 
+    border-radius: 10px 10px 0 0;
+}
+
+#bronze{
+    margin-top: 20%;
+    background-color: coral;
+    border-radius: 10px 10px 0 0;
+}
+
+.option{
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.option button{
+    cursor: pointer;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.option a{
+    text-decoration: none;
+    outline: none;
+}
+
+#rematch{
+    margin-right: 2px;
+}
+
+.option button:hover{
+    background-color: rgb(255, 255, 255);
+}

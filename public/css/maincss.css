@@ -14,7 +14,11 @@ body{
 .container{
     width: 825px;
     height: 600px;
+<<<<<<< HEAD
     margin-left: 13%;
+=======
+    margin-left: 2%;
+>>>>>>> 893894b1f4344f8c1b36c413b898275d2ef684cb
     background-color: rgb(102, 102, 102);
     border: 1px solid rgb(207, 207, 207);
 }
@@ -45,8 +49,8 @@ body{
 }
 
 .player{
+    margin-left: 10%;
     width: 150px;
-    height: 50px;
     display: flex;
     align-items: center;
     text-align: center;
@@ -69,7 +73,7 @@ body{
     width: 200px;
     height: 600px;
     border: 1px solid black;
-    margin-left: 50px;
+    margin-left: 2%;
 }
 .playerTag{
     width: 200px;
@@ -86,6 +90,7 @@ body{
     width: 200px;
     height: 600px;
     border: 1px solid black;
+    margin-right: 3%;
 }
 #chatBox{
     width: 190px;

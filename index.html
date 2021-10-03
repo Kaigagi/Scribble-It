@@ -9,6 +9,7 @@
 </head>
 <body>
     <div class="main">
+        <div id="wordDisplay"></div>
         <div id="playerBoard">
         
         </div>
@@ -42,6 +43,15 @@
             </div>
         </div>
     </div>
+    <button id="start" onclick="StartGame()" disabled>Start Game</button>
+    <div id="time"></div>
+    <div id="myModal" class="modal">
+        <div id="modal-content">
+          
+          
+        </div>
+      
+      </div>
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script src="./public/scripts/game.js"></script>

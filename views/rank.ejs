@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/rank.css">
+    <title>Scribble It</title>
+</head>
+<body>
+    <script>
+        // console.log(rank2)
+    </script>
+    <div class="container">
+        <div class="main">
+            <div class="tier" id="silver">
+                <img src="../image/demo-avt.png">
+                <span id="name2"><%= rank2.name %> </span>
+                <span id="score2"><%= rank2.score %></span>
+            </div>
+            <div class="tier" id="gold">
+                <img src="../image/demo-avt.png">
+                <span id="name1"><%= rank1.name %> </span>
+                <span id="score1"><%= rank1.score %></span>
+            </div>
+            <div class="tier" id="bronze">
+                <img src="../image/demo-avt.png">
+                <span id="name3"><%= rank3.name %> </span>
+                <span id="score3"><%= rank3.score %></span>
+            </div>
+        </div>
+        <div class="option">
+            <a href="/play" id=rematch><button>Rematch</button></a>
+            <a href="/" id=join-a-new><button>Join a new room</button></a>
+        </div>
+    </div>
+</body>
+</html>

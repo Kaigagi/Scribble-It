@@ -7,18 +7,14 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 5%;
+    margin-top: 3%;
     margin-bottom: 1%;
     padding: 0;
 }
 .container{
     width: 825px;
     height: 600px;
-<<<<<<< HEAD
-    margin-left: 13%;
-=======
-    margin-left: 2%;
->>>>>>> 893894b1f4344f8c1b36c413b898275d2ef684cb
+    margin-left: 5px;
     background-color: rgb(102, 102, 102);
     border: 1px solid rgb(207, 207, 207);
 }
@@ -84,6 +80,7 @@ body{
     padding: 0.5em;
     border: black solid 1px;
     box-sizing: border-box;
+    justify-content: space-around;
 }
 
 #chatArea{
@@ -123,11 +120,18 @@ button#sendMessage{
 #time{
     position: absolute;
     bottom: 10px;
-    left: 500px;
-    width: 500px;
-    height: 50px;
+    left: 200px;
+    width: 800px;
+    height: 80px;
     background-color: cornflowerblue;
     transition: 1s;
+}
+#start{
+    position: absolute;
+    height: 80px;
+    width: 150px;
+    bottom: 10px;
+    left: 1050px;
 }
 
 
@@ -148,11 +152,12 @@ button#sendMessage{
 #modal-content {
     background-color: #fefefe;
     margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
+    padding: 50px;
     border: 1px solid #888;
     width: 50%; /* Could be more or less, depending on screen size */
     display: flex;
-    justify-content: space-between;
+    font-size: 15px;
+    justify-content: space-around;
   }
   
   /* The Close Button */

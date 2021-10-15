@@ -1,24 +1,18 @@
 let socket = io();
-let host = false;
-let onGame = false;
 let startButton = document.getElementById("start");
-let modal = document.getElementById("myModal")
-let wordPoolHost;
-let roomMembersHost;
-let chosenWord;
-let startTime;
-let timeLimit;
+let modal = document.getElementById("myModal");
+let onGame = false;
+
 
 function renderPlayer(playersList){
     let playerBoard = document.getElementById("playerBoard");
     playerBoard.innerHTML = " ";
-    let count = 0;
     playersList.forEach(player => {
         let playerTag = document.createElement('div');
         let score = document.createElement("span")
-        playerTag.innerHTML= '<span>'+player+'</span>';
+        playerTag.innerHTML= '<span>'+player.name+'</span>';
         playerTag.classList.add("playerTag")
-        score.id = count++;
+        score.id = player.id;
         playerTag.append(score);
         playerBoard.append(playerTag)
     });
@@ -45,9 +39,9 @@ function sendMessage() {
     let input = document.getElementById("chat");
     addMessage(generateMessage(input.value,"me"),true);
     socket.emit("sendMessage",input.value);
-    if (onGame&&!turn) {
+    if (onGame = true) {
         socket.emit("answer",input.value)
-    }
+    } 
     input.value = "";
 }
 
@@ -58,7 +52,7 @@ function Enter(event) {
 }
 
 function StartGame() {
-    socket.emit("startGame");
+    socket.emit("startGame",true);
     startButton.disabled = true;
 }
 
@@ -69,6 +63,9 @@ socket.on("connect",()=>{
     socket.emit("join",{name,room},(err)=>{
         alert(err)
     })
+    setTimeout(()=>{
+        socket.emit("checkHost")
+    },500);
 })
 
 socket.on("join",(playersList)=>{
@@ -110,6 +107,7 @@ function chooseWord(event) {
     let word = event.target.innerHTML;
     socket.emit('hasChoseAWord',word)
     let wordDisplay = document.getElementById("wordDisplay")
+    wordDisplay.innerHTML=" ";
     let pre = document.createElement("pre")
     pre.innerHTML = word
     wordDisplay.classList.add("wordDisplay");
@@ -119,7 +117,6 @@ function chooseWord(event) {
 socket.on("startTurn",(randomWords)=>{
     let modalContent = document.getElementById("modal-content");
     modal.style.display = "block";
-    turn = true;
     for (let index = 0; index < randomWords.length; index++) {
         const word = randomWords[index];
         let wordChoice = document.createElement("span")
@@ -131,11 +128,10 @@ socket.on("startTurn",(randomWords)=>{
 })
 
 socket.on("hasChoseAWord",(word)=>{
-    if (host) {
-        chosenWord = word;
-    }
+    onGame = true;
     word = convertToAnonymous(word);
     let wordDisplay = document.getElementById("wordDisplay")
+    wordDisplay.innerHTML = " ";
     let pre = document.createElement("pre")
     pre.innerHTML = word
     wordDisplay.classList.add("wordDisplay");
@@ -150,19 +146,17 @@ socket.on("timerStart",(time)=>{
     timer.classList.add("startTimer");
 })
 
-socket.on("youWin",(playersScore)=>{
-    let count = 0;
-    console.log(1)
-    playersScore.forEach(playerScore => {
-        let score = document.getElementById(count++);
-        score.innerHTML = playerScore;
+socket.on("youWin",(playersList)=>{
+    playersList.forEach(player => {
+        let score = document.getElementById(player.id);
+        score.innerHTML = player.score;
     });
 })
 
-function getRandomWords(wordPool) {
-    let random = Math.round(Math.random()*(wordPool.length-1))
-    return wordPool[random];
-}
+// function getRandomWords(wordPool) {
+//     let random = Math.round(Math.random()*(wordPool.length-1))
+//     return wordPool[random];
+// }
 
 socket.on("startALoop",(wordPool,roomMembers)=>{
     wordPoolHost = wordPool;
@@ -179,18 +173,28 @@ socket.on("startALoop",(wordPool,roomMembers)=>{
     socket.emit("startTurn",drawer,randomWords)
 })
 
-socket.on("verifyAnswer",(answer,player)=>{
-    console.log(chosenWord);
-    console.log(answer)
-    if (answer == chosenWord) {
-        console.log(player);
-        let now = Date.now();
-        let time = now - startTime;
-        let score = (timeLimit/time)*20;
-        player.score += score;
-        socket.emit("updateScore",player);
-    }
+socket.on("endTurn",()=>{
+    let timer = document.getElementById("time")
+    timer.classList.remove("startTimer");
+    onGame = false;
 })
+
+socket.on("endGame",(roomName)=>{
+    window.location.href = "/rank/"+roomName;
+})
+
+// socket.on("verifyAnswer",(answer,player)=>{
+//     console.log(chosenWord);
+//     console.log(answer)
+//     if (answer == chosenWord) {
+//         console.log(player);
+//         let now = Date.now();
+//         let time = now - startTime;
+//         let score = (timeLimit/time)*20;
+//         player.score += score;
+//         socket.emit("updateScore",player);
+//     }
+// })
 
 
 

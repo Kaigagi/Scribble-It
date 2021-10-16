@@ -1,7 +1,6 @@
 
 // When true, moving the mouse draws on the canvas
 let isDrawing = false;
-let turn = false;
 let x = 0;
 let y = 0;
 

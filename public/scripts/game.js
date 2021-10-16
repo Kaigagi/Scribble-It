@@ -2,6 +2,7 @@ let socket = io();
 let startButton = document.getElementById("start");
 let modal = document.getElementById("myModal");
 let onGame = false;
+let turn = false;
 
 
 function renderPlayer(playersList){
@@ -115,6 +116,7 @@ function chooseWord(event) {
 }
 
 socket.on("startTurn",(randomWords)=>{
+    turn = true;
     let modalContent = document.getElementById("modal-content");
     modal.style.display = "block";
     for (let index = 0; index < randomWords.length; index++) {
@@ -177,6 +179,7 @@ socket.on("endTurn",()=>{
     let timer = document.getElementById("time")
     timer.classList.remove("startTimer");
     onGame = false;
+    turn = false;
 })
 
 socket.on("endGame",(roomName)=>{

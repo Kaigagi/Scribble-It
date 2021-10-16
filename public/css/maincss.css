@@ -96,6 +96,7 @@ body{
     border: 1px dashed gray;
     box-sizing: border-box;
     padding: 10px;
+    overflow: scroll;
 }
 #inputArea{
     width: 200px;
